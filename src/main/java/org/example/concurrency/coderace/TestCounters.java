@@ -2,7 +2,9 @@ package org.example.concurrency.coderace;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 /**
@@ -20,15 +22,15 @@ public class TestCounters {
         VolatileCounter vc = new VolatileCounter();
         runIncrementor(vc);
         System.out.printf("Volatile Counter: %22d%n", vc.getValue());
-//        SynchronizedCounter sc = new SynchronizedCounter();
-//        runIncrementor(sc);
-//        System.out.printf("Synchronized Counter: %18d%n", sc.getValue());
-//                AtomicCounter ac = new AtomicCounter();
-//        runIncrementor(ac);
-//        System.out.printf("Atomic Counter: %24d%n", ac.getValue());
-//        ReentrantLockCounter rlc = new ReentrantLockCounter();
-//        runIncrementor(rlc);
-//        System.out.printf("Reentrant Lock Counter: %16d%n", rlc.getValue());
+        SynchronizedCounter sc = new SynchronizedCounter();
+        runIncrementor(sc);
+        System.out.printf("Synchronized Counter: %18d%n", sc.getValue());
+        AtomicCounter ac = new AtomicCounter();
+        runIncrementor(ac);
+        System.out.printf("Atomic Counter: %24d%n", ac.getValue());
+        ReentrantLockCounter rlc = new ReentrantLockCounter();
+        runIncrementor(rlc);
+        System.out.printf("Reentrant Lock Counter: %16d%n", rlc.getValue());
 //                ReentrantRWLockCounter rwlc = new ReentrantRWLockCounter();
 //        runIncrementor(rwlc);
 //        System.out.printf("Reentrant Read-Write Lock Counter: %d%n",rwlc.getValue());
@@ -64,4 +66,46 @@ class VolatileCounter implements ICounter {
     private volatile int counter = 0;
     @Override public int getValue() { return counter; }
     @Override public void increment() { ++counter; }
+}
+
+class AtomicCounter implements ICounter {
+    private AtomicInteger counter = new AtomicInteger(0);
+
+    @Override
+    public int getValue() {
+        return counter.get();
+    }
+
+    @Override
+    public void increment() {
+        counter.incrementAndGet();
+    }
+}
+class SynchronizedCounter implements ICounter {
+    private int counter = 0;
+    @Override public synchronized int getValue() { return counter;}
+    @Override public synchronized void increment() { counter++; }
+    }
+class ReentrantLockCounter implements ICounter {
+    private Lock rl = new ReentrantLock();
+    private int counter = 0;
+
+    @Override
+    public int getValue() {
+        rl.lock();
+        try {
+            return counter;
+        } finally {
+            rl.unlock();
+        }
+    }
+    @
+            Override
+    public void increment() {
+        rl.lock();
+        try {
+            counter++;
+            getValue();
+        } finally { rl.unlock(); }
+    }
 }

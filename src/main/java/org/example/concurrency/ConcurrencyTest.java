@@ -12,11 +12,11 @@ public class ConcurrencyTest {
                 System.out.println("Printing record: " + i);
         };
         // the of these threads is unknown
-        System.out.println("begin");
-        new Thread(printInventory).start();
-        new Thread(printRecords).start();
-        new Thread(printInventory).start();
-        System.out.println("end");
+//        System.out.println("begin");
+//        new Thread(printInventory).start();
+//        new Thread(printRecords).start();
+//        new Thread(printInventory).start();
+//        System.out.println("end");
 
         //----------------------------------------------------
         //the sequence when the run() method is followed as each thread is waited tpo stop
