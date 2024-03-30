@@ -11,6 +11,7 @@ public class InstanceOfClass {
         //right operand must be the subtype of the left expression type(left operand)
         var result = obj instanceof String;// result = true
         if(obj instanceof String){// instance of pattern matching
+            System.out.println(obj instanceof String);
             String str = (String) obj;
             System.out.println(str);
         }
