@@ -38,5 +38,14 @@ public class SwitchTest {
                 // x is not available here
                 break;
         }
+        //----------------------------------------------------------------------
+
+    }
+    public String switchMethod(){
+        final int x = 1;
+        return switch(x){
+            case 0 -> "new Car()";
+            default -> "Ola";
+        };
     }
 }
