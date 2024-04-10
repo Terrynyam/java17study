@@ -28,7 +28,7 @@ public class QueryingPaths {
         absPath.forEach(p -> pl.add(p));
         System.out.printf("List of name elements: %s%n", pl);
         System.out.printf("getName(0): %s%n", absPath.getName(0));
-        System.out.printf("subpath(0,2): %s%n", absPath.subpath(0,2));
+        //System.out.printf("subpath(0,2): %s%n", absPath.subpath(0,2));
         System.out.println("\n***Path Prefix and Suffix:"); //
         System.out.printf("startsWith(\"%s\"): %s%n",
                 nameSeparator + "a",
