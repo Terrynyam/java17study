@@ -6,7 +6,17 @@ package org.example;
  */
 public class StringBuilderClass {
     public static void main(String... args) {
+        StringBuilder start = new StringBuilder(10);
+        System.out.println(start.capacity());
+        start.append("Hello");
+        System.out.println(start.capacity());
+        start.append("Comrade");
+        System.out.println(start.capacity());//22 (old-capacity * 2) + 2
+        System.out.println("//----------------------------------------------------------");
         StringBuilder strBuilder = new StringBuilder("Java"); // "Java", capacity 20
+        System.out.println(strBuilder.capacity());//20 (default-capacity + String.length)
+        // thus 16 + 4 = 20
+        
         char charFirst = strBuilder.charAt(0); // 'J'
         char charLast = strBuilder.charAt(strBuilder.length() - 1); // 'a'
         System.out.println(charFirst);
