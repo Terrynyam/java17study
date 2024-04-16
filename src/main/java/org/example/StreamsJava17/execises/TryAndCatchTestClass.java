@@ -24,7 +24,9 @@ public class TryAndCatchTestClass {
             //System.out.println("ola");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            //throw new RuntimeException();
+            //throw new RuntimeException();  if this statement in uncommented,
+            // it will throw an exception and will not print "outside try catch block"
+            //since the thrown exception is not handled
         }
         finally {
             System.out.println("finally block");
